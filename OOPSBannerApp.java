@@ -2,66 +2,116 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * OOPS Banner App
- * Combined UC1 → UC7
+ * OOPS Banner Application
+ * Final Version (UC1 → UC7)
+ * Demonstrates OOP Design + Git Workflow
+ *
  * @author Monish
  * @version 1.0
  */
 
 public class OOPSBannerApp {
 
+    // ===============================
+    // Character Pattern Class
+    // ===============================
+    static class CharacterPattern {
+
+        private char character;
+        private String[] pattern;
+
+        public CharacterPattern(char character, String[] pattern) {
+            this.character = character;
+            this.pattern = pattern;
+        }
+
+        public char getCharacter() {
+            return character;
+        }
+
+        public String[] getPattern() {
+            return pattern;
+        }
+    }
+
+    // ===============================
+    // Pattern Storage Class
+    // ===============================
+    static class CharacterPatternMap {
+
+        private static Map<Character, CharacterPattern> patternMap =
+                new HashMap<>();
+
+        static {
+
+            patternMap.put('O', new CharacterPattern('O', new String[]{
+                    " ***** ",
+                    "*     *",
+                    "*     *",
+                    "*     *",
+                    "*     *",
+                    "*     *",
+                    " ***** "
+            }));
+
+            patternMap.put('P', new CharacterPattern('P', new String[]{
+                    "***** ",
+                    "*    *",
+                    "*    *",
+                    "***** ",
+                    "*     ",
+                    "*     ",
+                    "*     "
+            }));
+
+            patternMap.put('S', new CharacterPattern('S', new String[]{
+                    " ***** ",
+                    "*      ",
+                    "*      ",
+                    " ***** ",
+                    "      *",
+                    "      *",
+                    " ***** "
+            }));
+        }
+
+        public static CharacterPattern getPattern(char ch) {
+            return patternMap.get(ch);
+        }
+    }
+
+    // ===============================
+    // Banner Display Logic
+    // ===============================
+    public static void displayBanner(String text) {
+
+        for (int row = 0; row < 7; row++) {
+
+            for (char ch : text.toCharArray()) {
+
+                CharacterPattern cp =
+                        CharacterPatternMap.getPattern(ch);
+
+                if (cp != null) {
+                    System.out.print(cp.getPattern()[row] + " ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    // ===============================
+    // MAIN METHOD
+    // ===============================
     public static void main(String[] args) {
 
         // UC1 → Simple Output
-        System.out.println("Printing OOPS normally:");
+        System.out.println("Printing OOPS normally:\n");
         System.out.println("OOPS\n");
 
-        // UC7 → Map based Banner System
-        Map<Character, String[]> map = new HashMap<>();
+        // UC7 → OOPS Banner
+        System.out.println("OOPS Banner:\n");
 
-        // Letter O
-        String[] O = {
-                " ***** ",
-                "*     *",
-                "*     *",
-                "*     *",
-                "*     *",
-                "*     *",
-                " ***** "
-        };
-
-        // Letter P
-        String[] P = {
-                "***** ",
-                "*    *",
-                "*    *",
-                "***** ",
-                "*     ",
-                "*     ",
-                "*     "
-        };
-
-        // Letter S
-        String[] S = {
-                " ***** ",
-                "*      ",
-                "*      ",
-                " ***** ",
-                "      *",
-                "      *",
-                " ***** "
-        };
-
-        // Store patterns in Map
-        map.put('O', O);
-        map.put('P', P);
-        map.put('S', S);
-
-        // Create Banner Object (UC6 OOPS)
-        Banner banner = new Banner(map);
-
-        // Display Banner
-        System.out.println("\nOOPS Banner:\n");
-        banner.display("OOPS");
+        displayBanner("OOPS");
     }
 }
